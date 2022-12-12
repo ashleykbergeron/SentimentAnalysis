@@ -11,14 +11,7 @@ registerDoParallel(cl)
 #confirm how many cores are now assigned to R and RStudio
 getDoParWorkers()
 #stop cluster AFTER performing your tasks by using stopCluster(cl)
-stopCluster(cl)
-library(doParallel)
-#start a new cluster for parallel processing
-cl2 <- makeCluster(2)
-#register cluster
-registerDoParallel(cl2)
-getDoParWorkers()
-#iphone small matrix dataset
+#small matrix dataset
 #59 variables, almost 13k observations
 #list attributes
 attributes(iphone_smallmatrix_labeled_8d)
@@ -56,13 +49,6 @@ plot_ly(iphonesmall, x = ~iphonesmall$iphonesentiment, type='histogram')
 #trying to check again for NAs
 iphonesmall[!complete.cases(iphonesmall),]
 #returned none missing
-stopCluster(cl2)
-library(doParallel)
-#start a new cluster for parallel processing
-cl2 <- makeCluster(2)
-#register cluster
-registerDoParallel(cl2)
-getDoParWorkers()
 #correlation
 corrData <- cor(iphonesmall)
 corrData
@@ -120,13 +106,6 @@ rfeResults <- rfe(iphoneSample[,1:58], iphoneSample$iphonesentiment, sizes=(1:58
 rfeResults
 #plot results
 plot(rfeResults, type=c("g", "o"))
-stopCluster(cl2)
-library(doParallel)
-#start a new cluster for parallel processing
-cl <- makeCluster(3)
-#register cluster
-registerDoParallel(cl)
-getDoParWorkers()
 #next new dataset, recursive feature elimination
 #RFE is a form of automated feature selection
 #sample the data before using RFE
@@ -140,7 +119,6 @@ rfeResults <- rfe(iphoneSample[,1:58], iphoneSample$iphonesentiment, sizes=(1:58
                   rfeControl=ctrl)
 #get results
 rfeResults
-
 #plot results
 plot(rfeResults, type=c("g", "o"))
 #create new dataset with rfe recommended features
@@ -271,14 +249,6 @@ cmRF3 <- confusionMatrix(PredsrfM3, testing$iphonesentiment)
 cmRF3
 cmC503 <- confusionMatrix(PredsC50M3, testing$iphonesentiment)
 cmC503
-stopCluster(cl)
-
-library(doParallel)
-#start a new cluster for parallel processing
-cl <- makeCluster(3)
-#register cluster
-registerDoParallel(cl)
-getDoParWorkers()
 
 #set seed
 set.seed(123)
